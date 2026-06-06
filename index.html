@@ -3,153 +3,95 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Offline File Generator | Private Offline Assistant</title>
-  <meta name="description" content="Generate files, code, and text responses completely offline via SMS. No internet required, no app downloads, and zero data footprint.">
-  <meta name="robots" content="index, follow">
+  <title>Secure Offline Bot | SMS Assistant</title>
+  <meta name="description" content="An offline bot that replies to your SMS instantly. Reliable for remote operations, completely private for security professionals.">
   <link rel="canonical" href="https://offlinefilegenerator.com/">
-
-  <!-- Open Graph Metadata (Facebook, LinkedIn, WhatsApp) -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://offlinefilegenerator.com/">
-  <meta property="og:title" content="Offline File Generator | Private Offline Assistant">
-  <meta property="og:description" content="Generate files, code, and text responses completely offline via SMS. No internet required, no app downloads, and zero data footprint.">
-  <meta property="og:image" content="https://offlinefilegenerator.com/assets/og-preview.png">
-
-  <!-- Twitter Card Metadata -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="https://offlinefilegenerator.com/">
-  <meta name="twitter:title" content="Offline File Generator | Private Offline Assistant">
-  <meta name="twitter:description" content="Generate files, code, and text responses completely offline via SMS. No internet required, no app downloads, and zero data footprint.">
-  <meta name="twitter:image" content="https://offlinefilegenerator.com/assets/og-preview.png">
-
-  <!-- JSON-LD Structured Data / Schema Markup -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebApplication",
-        "@id": "https://offlinefilegenerator.com/#webapp",
-        "url": "https://offlinefilegenerator.com/",
-        "name": "Offline File Generator",
-        "applicationCategory": "Utility",
-        "operatingSystem": "All (requires SMS capability)",
-        "description": "Generate files, scripts, and text responses completely offline via SMS. No internet, logins, or app downloads required.",
-        "offers": {
-          "@type": "Offer",
-          "price": "0.00",
-          "priceCurrency": "USD"
-        }
-      },
-      {
-        "@type": "FAQPage",
-        "@id": "https://offlinefilegenerator.com/#faq",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Do I need a smartphone to use this service?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "No. Any phone that is capable of sending and receiving text messages will work. No special operating system or applications are required."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Are there any service fees?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "The service is free to access. However, standard cellular texting fees and text carrier plan limits will apply depending on your custom network subscription."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "How is my privacy protected?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Requests are handled by an isolated compute node and are permanently destroyed in memory immediately after generation. We maintain no connection history, user profiling databases, or search records."
-            }
-          }
-        ]
-      }
-    ]
-  }
-  </script>
   
-  <!-- Tailwind CSS Play CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- Google Fonts: Outfit & Inter -->
+  <!-- Google Fonts: Inter & Space Grotesk for a secure, utilitarian but modern look -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   
-  <!-- Tailwind Configuration -->
   <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
             sans: ['Inter', 'sans-serif'],
-            outfit: ['Outfit', 'sans-serif'],
+            display: ['Space Grotesk', 'sans-serif'],
           },
           colors: {
-            obsidian: '#07080c',
-            navyDark: '#0c0e17',
+            base: '#050505',
+            surface: '#111111',
+            surfaceGlow: '#1a1a1a',
           }
         }
       }
     }
   </script>
 
-  <!-- Custom CSS for specialized patterns and animations -->
   <style>
-    @keyframes shimmer {
-      100% {
-        transform: translateX(100%);
-      }
+    body { background-color: #050505; }
+    
+    @keyframes pulse-slow {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.6; }
     }
     
-    .animate-shimmer {
-      animation: shimmer 2s infinite;
-    }
-
     .bg-grid {
-      background-size: 30px 30px;
+      background-size: 40px 40px;
       background-image: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      mask-image: radial-gradient(circle at center, black, transparent 80%);
     }
 
-    .glow-border:hover {
-      box-shadow: 0 0 25px rgba(99, 102, 241, 0.15);
-      border-color: rgba(99, 102, 241, 0.3);
+    .glass-card {
+      background: rgba(17, 17, 17, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    }
+    
+    .glass-card:hover {
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .gradient-text {
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .glow-cyan {
+      box-shadow: 0 0 30px rgba(34, 211, 238, 0.15);
+    }
+    
+    .glow-emerald {
+      box-shadow: 0 0 30px rgba(52, 211, 153, 0.15);
     }
   </style>
 </head>
-<body class="bg-obsidian text-slate-200 font-sans min-h-screen relative flex flex-col items-center justify-between overflow-x-hidden">
+<body class="text-slate-300 font-sans antialiased min-h-screen relative flex flex-col items-center overflow-x-hidden selection:bg-cyan-500/30 selection:text-cyan-200">
 
-  <!-- Grid overlay -->
-  <div class="absolute inset-0 bg-grid pointer-events-none z-0"></div>
-  
-  <!-- Ambient glow spots (Cyber-neon backdrop blur) -->
-  <div class="absolute top-[5%] left-[10%] w-[350px] md:w-[600px] h-[350px] md:h-[600px] rounded-full bg-indigo-600/10 blur-[90px] md:blur-[130px] pointer-events-none z-0"></div>
-  <div class="absolute bottom-[10%] right-[10%] w-[350px] md:w-[600px] h-[350px] md:h-[600px] rounded-full bg-cyan-600/10 blur-[90px] md:blur-[130px] pointer-events-none z-0"></div>
+  <!-- Background Effects -->
+  <div class="fixed inset-0 bg-grid pointer-events-none z-0"></div>
+  <div class="fixed top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-cyan-900/20 blur-[120px] pointer-events-none z-0 mix-blend-screen" style="animation: pulse-slow 8s infinite"></div>
+  <div class="fixed bottom-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-emerald-900/10 blur-[120px] pointer-events-none z-0 mix-blend-screen" style="animation: pulse-slow 10s infinite reverse"></div>
 
   <!-- Header -->
-  <header id="main-header" class="w-full max-w-5xl px-6 py-6 flex items-center justify-between border-b border-white/[0.05] bg-obsidian/60 backdrop-blur-md sticky top-0 z-50">
+  <header class="w-full max-w-6xl px-6 py-6 flex items-center justify-between z-50 relative">
     <div class="flex items-center gap-3">
-      <!-- Icon/Logo -->
-      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-cyan-500 flex items-center justify-center shadow-lg shadow-indigo-500/20">
-        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"></path>
+      <div class="w-10 h-10 rounded-lg bg-surface border border-white/10 flex items-center justify-center">
+        <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205l3 1m1.5.5l-1.5-.5M6.75 7.364V3h-3v18m3-13.636l10.5-3.819"></path>
         </svg>
       </div>
-      <span class="font-outfit font-bold text-xl tracking-tight text-white bg-clip-text bg-gradient-to-r from-white via-slate-100 to-slate-300">
-        Offline File Gen
-      </span>
+      <span class="font-display font-bold text-lg tracking-wide text-white">Offline<span class="text-cyan-400">Bot</span></span>
     </div>
     
-    <!-- System status indicator badge -->
     <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold uppercase tracking-wider">
       <span class="relative flex h-2 w-2">
         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -159,263 +101,228 @@
     </div>
   </header>
 
-  <!-- Main Container -->
-  <main class="w-full max-w-4xl px-6 py-12 md:py-20 flex flex-col gap-20 relative z-10">
+  <main class="w-full max-w-6xl px-6 py-16 md:py-24 flex flex-col gap-32 relative z-10">
     
-    <!-- Hero / Centered Card -->
-    <section id="hero-section" class="flex flex-col items-center text-center">
-      <!-- Badge -->
-      <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-bold uppercase tracking-wider mb-6">
-        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"></path>
+    <!-- Hero Section -->
+    <section class="flex flex-col items-center text-center mt-8">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.03] border border-white/10 text-slate-300 text-sm font-medium tracking-wide mb-8 hover:bg-white/[0.05] transition-colors cursor-default">
+        <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"></path>
         </svg>
-        No Cloud. No Tracking. Just SMS.
-      </span>
+        Your Offline SMS Assistant
+      </div>
 
-      <h1 class="font-outfit text-4xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight leading-tight mb-6 max-w-2xl">
-        Generate Files & Code <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-cyan-400 to-emerald-400">Completely Offline</span>
+      <h1 class="font-display text-5xl sm:text-6xl md:text-7xl font-bold text-white tracking-tight leading-[1.1] mb-8 max-w-4xl">
+        The Smart Offline Bot—<br/>
+        <span class="bg-gradient-to-r from-cyan-400 to-emerald-400 gradient-text">That Replies via SMS.</span>
       </h1>
       
-      <p class="text-slate-400 text-lg md:text-xl font-normal leading-relaxed mb-10 max-w-xl">
-        Receive scripts, text templates, formatted data, and answers direct to your phone. Works over cellular network without app installs, logins, or internet connections.
+      <p class="text-slate-400 text-lg md:text-xl font-normal leading-relaxed mb-12 max-w-2xl">
+        Get instant answers and data delivered directly to your phone. Reliable for remote operations and completely private. No apps. No Wi-Fi. Zero data footprint.
       </p>
 
-      <!-- Access Control Card -->
-      <div class="w-full max-w-md p-8 rounded-3xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-xl shadow-xl flex flex-col items-center">
-        <!-- State 1: Locked Button -->
-        <div id="locked-state" class="w-full transition-all duration-300">
-          <h2 class="text-sm font-semibold uppercase tracking-wider text-slate-500 mb-5">Ready to connect?</h2>
-          <button id="reveal-btn" class="group relative w-full py-4 px-6 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-outfit font-semibold text-lg tracking-wider shadow-[0_0_30px_rgba(99,102,241,0.25)] hover:shadow-[0_0_40px_rgba(99,102,241,0.45)] transition-all duration-300 hover:scale-[1.01] active:scale-[0.99] overflow-hidden focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-[#07080c]">
-            <!-- Shimmer highlight -->
-            <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shimmer"></span>
-            <span class="relative">Reveal Access Number</span>
-          </button>
-        </div>
+      <div class="flex flex-col sm:flex-row items-center gap-4 relative z-20">
+        <a href="sms:+61477830253?body=Start" class="group relative px-8 py-4 rounded-xl bg-white text-base font-semibold text-slate-950 font-display tracking-wide hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 flex items-center gap-3 overflow-hidden glow-cyan cursor-pointer">
+          <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-cyan-400/20 to-emerald-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></span>
+          <svg class="w-5 h-5 relative z-10 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"></path>
+          </svg>
+          <span class="relative z-10 pointer-events-none">Try It Now</span>
+        </a>
+      </div>
+    </section>
 
-        <!-- State 2: Unlocked Content (Initially hidden) -->
-        <div id="unlocked-state" class="hidden opacity-0 w-full flex flex-col items-center scale-95 transition-all duration-500 ease-out">
-          <div class="w-full py-4 px-5 rounded-xl bg-white/[0.03] border border-white/[0.06] mb-4 flex flex-col items-center justify-center">
-            <span class="text-xs text-indigo-400 uppercase tracking-widest font-bold mb-1">Access line</span>
-            <span class="font-outfit text-2xl sm:text-3xl font-bold text-white tracking-widest font-mono">
-              +61 477 830 253
-            </span>
-            <p class="text-xs sm:text-sm text-slate-400 mt-3 font-medium text-center">
-              Text <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400 font-bold font-mono">"More Info"</span> to this number
-            </p>
-          </div>
-
-          <a href="sms:+61477830253?body=More%20Info" class="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 hover:from-cyan-300 hover:to-emerald-300 text-slate-950 font-outfit font-bold text-lg text-center tracking-wider shadow-[0_0_35px_rgba(34,211,238,0.2)] hover:shadow-[0_0_45px_rgba(34,211,238,0.35)] transition-all duration-300 hover:scale-[1.01] active:scale-[0.99] focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-[#07080c] flex items-center justify-center gap-3">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-            </svg>
-            Send Text Message
-          </a>
+    <!-- Dual Value Section -->
+    <section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      
+      <!-- Card 1: B2B -->
+      <div class="glass-card rounded-3xl p-8 md:p-12 flex flex-col relative overflow-hidden group">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-cyan-500/5 rounded-full blur-[80px] group-hover:bg-cyan-500/10 transition-colors duration-500"></div>
+        
+        <div class="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center mb-8">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6h1.5m-1.5 3h1.5m-1.5 3h1.5M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21"></path>
+          </svg>
         </div>
+        
+        <h2 class="font-display text-2xl md:text-3xl font-bold text-white mb-4">Enterprise Remote Operations</h2>
+        <p class="text-slate-400 leading-relaxed mb-8">
+          Built for field workers operating far beyond the reach of 4G/5G data. Have our offline bot instantly reply with technical manuals, safety protocols, and necessary data using basic cellular signal.
+        </p>
+        
+        <ul class="flex flex-col gap-4 mt-auto">
+          <li class="flex items-center gap-3 text-sm text-slate-300 font-medium">
+            <svg class="w-5 h-5 text-cyan-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path></svg>
+            Offline reliability in dead zones
+          </li>
+          <li class="flex items-center gap-3 text-sm text-slate-300 font-medium">
+            <svg class="w-5 h-5 text-cyan-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path></svg>
+            Optimized for low-bandwidth environments
+          </li>
+          <li class="flex items-center gap-3 text-sm text-slate-300 font-medium">
+            <svg class="w-5 h-5 text-cyan-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path></svg>
+            Seamless field-worker access
+          </li>
+          <li class="flex items-center gap-3 text-sm text-slate-300 font-medium">
+            <svg class="w-5 h-5 text-cyan-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path></svg>
+            Enterprise device whitelisting
+          </li>
+        </ul>
+      </div>
+
+      <!-- Card 2: B2C -->
+      <div class="glass-card rounded-3xl p-8 md:p-12 flex flex-col relative overflow-hidden group">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-[80px] group-hover:bg-emerald-500/10 transition-colors duration-500"></div>
+        
+        <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center mb-8">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"></path>
+          </svg>
+        </div>
+        
+        <h2 class="font-display text-2xl md:text-3xl font-bold text-white mb-4">The Privacy Vault</h2>
+        <p class="text-slate-400 leading-relaxed mb-8">
+          A fully private offline bot that leaves no app data or browser history on your device. Your personal assistant for zero-tracking search and instant replies.
+        </p>
+        
+        <ul class="flex flex-col gap-4 mt-auto">
+          <li class="flex items-center gap-3 text-sm text-slate-300 font-medium">
+            <svg class="w-5 h-5 text-emerald-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path></svg>
+            100% Offline processing
+          </li>
+          <li class="flex items-center gap-3 text-sm text-slate-300 font-medium">
+            <svg class="w-5 h-5 text-emerald-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path></svg>
+            Zero logs. Zero history.
+          </li>
+          <li class="flex items-center gap-3 text-sm text-slate-300 font-medium">
+            <svg class="w-5 h-5 text-emerald-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path></svg>
+            Completely untraceable footprint
+          </li>
+          <li class="flex items-center gap-3 text-sm text-slate-300 font-medium">
+            <svg class="w-5 h-5 text-emerald-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path></svg>
+            Encrypted prepaid access
+          </li>
+        </ul>
       </div>
     </section>
 
     <!-- How It Works Section -->
-    <section id="how-it-works" class="flex flex-col gap-12 text-center">
-      <div class="flex flex-col items-center">
-        <h2 class="font-outfit text-3xl md:text-4xl font-extrabold text-white tracking-tight">How It Works</h2>
-        <div class="w-16 h-1 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-full mt-4"></div>
+    <section class="flex flex-col items-center">
+      <div class="text-center mb-16">
+        <h2 class="font-display text-3xl md:text-5xl font-bold text-white tracking-tight mb-4">How The Bot Works</h2>
+        <p class="text-slate-400 text-lg">No apps, Wi-Fi, or mobile data required. Three simple steps.</p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-        <!-- Connecting line for desktop -->
-        <div class="hidden md:block absolute top-[52px] left-[15%] right-[15%] h-0.5 border-t border-dashed border-white/10 z-0"></div>
-        
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full relative">
+        <!-- Connecting Line -->
+        <div class="hidden md:block absolute top-[44px] left-[15%] right-[15%] h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent z-0"></div>
+
         <!-- Step 1 -->
-        <div class="flex flex-col items-center text-center p-6 bg-white/[0.01] border border-white/[0.04] rounded-2xl relative z-10">
-          <div class="w-14 h-14 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center font-outfit text-lg font-bold mb-5 shadow-sm">
-            1
-          </div>
-          <h3 class="text-base font-bold text-white mb-2">Send a Text</h3>
-          <p class="text-slate-400 text-xs leading-relaxed">
-            Message your request, code query, or document prompt directly to the access line.
+        <div class="relative z-10 flex flex-col items-center text-center p-8 bg-surface/50 border border-white/5 rounded-3xl hover:bg-surface/80 transition-colors">
+          <div class="w-16 h-16 rounded-full bg-base border border-white/10 flex items-center justify-center font-display text-xl font-bold text-white mb-6 shadow-xl">1</div>
+          <h3 class="text-xl font-bold text-white mb-3">Send Your Request</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Text your question, calculation, or search directly to our secure access line using a standard cellular signal.
           </p>
         </div>
 
         <!-- Step 2 -->
-        <div class="flex flex-col items-center text-center p-6 bg-white/[0.01] border border-white/[0.04] rounded-2xl relative z-10">
-          <div class="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center font-outfit text-lg font-bold mb-5 shadow-sm">
-            2
-          </div>
-          <h3 class="text-base font-bold text-white mb-2">Secure Local Processing</h3>
-          <p class="text-slate-400 text-xs leading-relaxed">
-            Your query is evaluated instantly within a secure, fully airgapped compute environment.
+        <div class="relative z-10 flex flex-col items-center text-center p-8 bg-surface/50 border border-white/5 rounded-3xl hover:bg-surface/80 transition-colors">
+          <div class="w-16 h-16 rounded-full bg-base border border-white/10 flex items-center justify-center font-display text-xl font-bold text-white mb-6 shadow-xl">2</div>
+          <h3 class="text-xl font-bold text-white mb-3">Secure Processing</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Your query is received and processed instantly by our offline bot with zero external tracking or logs.
           </p>
         </div>
 
         <!-- Step 3 -->
-        <div class="flex flex-col items-center text-center p-6 bg-white/[0.01] border border-white/[0.04] rounded-2xl relative z-10">
-          <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center font-outfit text-lg font-bold mb-5 shadow-sm">
-            3
-          </div>
-          <h3 class="text-base font-bold text-white mb-2">Instant Reply</h3>
-          <p class="text-slate-400 text-xs leading-relaxed">
-            Receive the compiled text response or file templates texted directly back to you.
+        <div class="relative z-10 flex flex-col items-center text-center p-8 bg-surface/50 border border-white/5 rounded-3xl hover:bg-surface/80 transition-colors">
+          <div class="w-16 h-16 rounded-full bg-base border border-white/10 flex items-center justify-center font-display text-xl font-bold text-white mb-6 shadow-xl">3</div>
+          <h3 class="text-xl font-bold text-white mb-3">Instant Reply</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Receive the answer, procedure, or requested data texted directly back to your phone within seconds.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- Features Showcase Section -->
-    <section id="features" class="flex flex-col gap-8">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Feature 1 -->
-        <div class="glow-border p-6 rounded-2xl bg-white/[0.01] border border-white/[0.04] flex flex-col gap-4 transition-all duration-300">
-          <div class="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center shrink-0">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707M12 5a7 7 0 100 14 7 7 0 000-14z"></path>
-            </svg>
-          </div>
-          <div>
-            <h3 class="text-base font-bold text-white mb-1.5">Zero Internet Required</h3>
-            <p class="text-slate-400 text-xs leading-relaxed">
-              No cellular data plans, Wi-Fi networks, or external connections required. Access code and text utilities over traditional phone signal channels.
-            </p>
-          </div>
-        </div>
-
-        <!-- Feature 2 -->
-        <div class="glow-border p-6 rounded-2xl bg-white/[0.01] border border-white/[0.04] flex flex-col gap-4 transition-all duration-300">
-          <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-            </svg>
-          </div>
-          <div>
-            <h3 class="text-base font-bold text-white mb-1.5">Total Data Isolation</h3>
-            <p class="text-slate-400 text-xs leading-relaxed">
-              All queries are processed within a closed-loop hardware vault. Your input never hits the open internet, and zero logs are stored.
-            </p>
-          </div>
-        </div>
-
-        <!-- Feature 3 -->
-        <div class="glow-border p-6 rounded-2xl bg-white/[0.01] border border-white/[0.04] flex flex-col gap-4 transition-all duration-300">
-          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"></path>
-            </svg>
-          </div>
-          <div>
-            <h3 class="text-base font-bold text-white mb-1.5">App-Free Design</h3>
-            <p class="text-slate-400 text-xs leading-relaxed">
-              Compatible with any mobile phone or device supporting standard messaging. No app installations, portal configurations, or setup flows.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ Accordion Section -->
-    <section id="faq-section" class="flex flex-col gap-8">
-      <div class="text-center flex flex-col items-center">
-        <h2 class="font-outfit text-2xl md:text-3xl font-extrabold text-white tracking-tight">Frequently Asked Questions</h2>
-        <div class="w-16 h-1 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-full mt-3"></div>
+    <!-- Pricing Section -->
+    <section class="flex flex-col items-center w-full">
+      <div class="text-center mb-16">
+        <h2 class="font-display text-3xl md:text-5xl font-bold text-white tracking-tight mb-4">Secure Access Plans</h2>
+        <p class="text-slate-400 text-lg">Flexible access models tailored for ultimate privacy and enterprise scale.</p>
       </div>
 
-      <div class="w-full max-w-2xl mx-auto flex flex-col gap-4">
-        <!-- FAQ 1 -->
-        <div class="border border-white/[0.05] bg-white/[0.01] rounded-xl overflow-hidden transition-all duration-300">
-          <button onclick="toggleFaq(1)" class="w-full px-6 py-4 flex items-center justify-between text-left text-white font-semibold text-sm focus:outline-none hover:bg-white/[0.02]">
-            <span>Do I need a smartphone to use this service?</span>
-            <svg id="faq-icon-1" class="w-4 h-4 text-slate-500 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path></svg>
-          </button>
-          <div id="faq-content-1" class="max-h-0 opacity-0 overflow-hidden transition-all duration-300 ease-in-out">
-            <div class="px-6 pb-4 text-xs text-slate-400 leading-relaxed border-t border-white/[0.02] pt-3">
-              No. Any phone that is capable of sending and receiving text messages will work. No special operating system or applications are required.
-            </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl mx-auto">
+        <!-- B2C Plan -->
+        <div class="p-8 rounded-3xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.04] transition-colors flex flex-col">
+          <div class="mb-8">
+            <span class="inline-block px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-4">Privacy Advocates</span>
+            <h3 class="font-display text-2xl font-bold text-white">Prepaid Access Credits</h3>
           </div>
+          
+          <ul class="flex flex-col gap-4 mb-8">
+            <li class="flex items-start gap-3 text-sm text-slate-300">
+              <svg class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              Purchase access codes securely via standard payment or crypto.
+            </li>
+            <li class="flex items-start gap-3 text-sm text-slate-300">
+              <svg class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              Text the code to our system to instantly unlock a set number of queries.
+            </li>
+            <li class="flex items-start gap-3 text-sm text-slate-300">
+              <svg class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              Pay as you go, zero subscriptions, zero ties to your identity.
+            </li>
+          </ul>
+          
+          <button class="mt-auto w-full py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white font-medium transition-colors">
+            Buy Credits
+          </button>
         </div>
 
-        <!-- FAQ 2 -->
-        <div class="border border-white/[0.05] bg-white/[0.01] rounded-xl overflow-hidden transition-all duration-300">
-          <button onclick="toggleFaq(2)" class="w-full px-6 py-4 flex items-center justify-between text-left text-white font-semibold text-sm focus:outline-none hover:bg-white/[0.02]">
-            <span>Are there any service fees?</span>
-            <svg id="faq-icon-2" class="w-4 h-4 text-slate-500 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path></svg>
-          </button>
-          <div id="faq-content-2" class="max-h-0 opacity-0 overflow-hidden transition-all duration-300 ease-in-out">
-            <div class="px-6 pb-4 text-xs text-slate-400 leading-relaxed border-t border-white/[0.02] pt-3">
-              The service is free to access. However, standard cellular texting fees and text carrier plan limits will apply depending on your custom network subscription.
-            </div>
+        <!-- B2B Plan -->
+        <div class="p-8 rounded-3xl border border-cyan-500/20 bg-cyan-500/5 hover:bg-cyan-500/10 transition-colors flex flex-col relative overflow-hidden">
+          <div class="absolute top-0 right-0 px-4 py-1 bg-cyan-500 text-base font-bold text-xs uppercase tracking-wider rounded-bl-xl">Enterprise</div>
+          
+          <div class="mb-8">
+            <span class="inline-block px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 text-xs font-bold uppercase tracking-wider mb-4">Remote Operations</span>
+            <h3 class="font-display text-2xl font-bold text-white">Company Retainer</h3>
           </div>
-        </div>
-
-        <!-- FAQ 3 -->
-        <div class="border border-white/[0.05] bg-white/[0.01] rounded-xl overflow-hidden transition-all duration-300">
-          <button onclick="toggleFaq(3)" class="w-full px-6 py-4 flex items-center justify-between text-left text-white font-semibold text-sm focus:outline-none hover:bg-white/[0.02]">
-            <span>How is my privacy protected?</span>
-            <svg id="faq-icon-3" class="w-4 h-4 text-slate-500 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path></svg>
+          
+          <ul class="flex flex-col gap-4 mb-8">
+            <li class="flex items-start gap-3 text-sm text-slate-300">
+              <svg class="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              A predictable monthly fee for enterprise teams and fleets.
+            </li>
+            <li class="flex items-start gap-3 text-sm text-slate-300">
+              <svg class="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              Whitelist employee phone numbers for seamless field access.
+            </li>
+            <li class="flex items-start gap-3 text-sm text-slate-300">
+              <svg class="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              Deploy a dedicated local SMS number trained exclusively on your internal company data.
+            </li>
+          </ul>
+          
+          <button class="mt-auto w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-base font-bold transition-colors text-black">
+            Contact Sales
           </button>
-          <div id="faq-content-3" class="max-h-0 opacity-0 overflow-hidden transition-all duration-300 ease-in-out">
-            <div class="px-6 pb-4 text-xs text-slate-400 leading-relaxed border-t border-white/[0.02] pt-3">
-              Requests are handled by an isolated compute node and are permanently destroyed in memory immediately after generation. We maintain no connection history, user profiling databases, or search records.
-            </div>
-          </div>
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- Footer -->
-  <footer class="w-full max-w-5xl px-6 py-6 border-t border-white/[0.05] bg-obsidian flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-500 relative z-10 mt-12">
+  <footer class="w-full max-w-6xl px-6 py-8 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-slate-500 relative z-10 mt-12">
     <div class="flex items-center gap-2">
       <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-      <span>System Status: Online</span>
+      <span>System Status: Fully Operational</span>
     </div>
     <div>
-      &copy; 2026 Offline File Generator. All rights reserved.
+      &copy; 2026 OfflineBot. All rights reserved.
     </div>
   </footer>
 
-  <!-- Vanilla JS state control -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // Reveal Phone Number Button Logic
-      const revealBtn = document.getElementById('reveal-btn');
-      const lockedState = document.getElementById('locked-state');
-      const unlockedState = document.getElementById('unlocked-state');
-
-      if (revealBtn) {
-        revealBtn.addEventListener('click', () => {
-          lockedState.style.opacity = '0';
-          lockedState.style.transform = 'scale(0.95)';
-          
-          setTimeout(() => {
-            lockedState.style.display = 'none';
-            unlockedState.classList.remove('hidden');
-            // Force reflow
-            unlockedState.offsetHeight;
-            unlockedState.classList.remove('opacity-0', 'scale-95');
-            unlockedState.classList.add('opacity-100', 'scale-100');
-          }, 300);
-        });
-      }
-    });
-
-    // FAQ Accordion Logic
-    function toggleFaq(index) {
-      const content = document.getElementById(`faq-content-${index}`);
-      const icon = document.getElementById(`faq-icon-${index}`);
-      
-      if (content.classList.contains('opacity-0')) {
-        // Expand
-        content.style.maxHeight = '200px';
-        content.classList.remove('opacity-0');
-        content.classList.add('opacity-100');
-        icon.style.transform = 'rotate(180deg)';
-      } else {
-        // Collapse
-        content.style.maxHeight = '0px';
-        content.classList.add('opacity-0');
-        content.classList.remove('opacity-100');
-        icon.style.transform = 'rotate(0deg)';
-      }
-    }
-  </script>
 </body>
 </html>
